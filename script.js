@@ -4,7 +4,9 @@ let currentPlayer = 'X';
 let isGameActive = true;
 
 // The 8 possible winning line index combinations on a 3x3 grid
-const winLines = [, [3, 4, 5], [6, 7, 8], // Rows, [1, 4, 7], [2, 5, 8], // Columns, [2, 4, 6]             // Diagonals
+const winLines =[ [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows,
+  [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns,
+ [0, 4, 8] , [2, 4, 6]             // Diagonals
 ];
 
 const cells = document.querySelectorAll('.cell');
@@ -14,7 +16,7 @@ const statusDisplay = document.getElementById('status');
 function handleCellClick(event) {
     const clickedCell = event.target;
     const clickedIndex = parseInt(clickedCell.getAttribute('data-index'));
-
+console.log('click')
     // 4. CONDITIONALS: Stop if cell is taken or game is over
     if (board[clickedIndex] !== '' || !isGameActive) {
         return;
@@ -48,7 +50,7 @@ function checkResult() {
 
     // 4. CONDITIONALS: Handle game results
     if (roundWon) {
-        statusDisplay.innerText = Player ${currentPlayer} Has Won! 🎉;
+        statusDisplay.innerText =` Player ${currentPlayer} has Won! 🎉`;
         isGameActive = false;
         return;
     }
@@ -62,8 +64,8 @@ function checkResult() {
 
     // Switch player using a ternary operator conditional
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    statusDisplay.innerText = Player ${currentPlayer}'s turn;
+    statusDisplay.innerText =  `Player ${currentPlayer}'s turn`;
 }
 
 // Attach event listeners to all 9 squares using a loop array method
-cells.forEach(cell => cell.addEventListener
+cells.forEach(cell => cell.addEventListener("click", handleCellClick))
